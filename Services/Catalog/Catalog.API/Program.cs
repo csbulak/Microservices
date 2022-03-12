@@ -1,3 +1,4 @@
+using Catalog.API.Services;
 using Catalog.API.Settings;
 using Microsoft.Extensions.Options;
 
@@ -15,6 +16,8 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettings"));
 
 builder.Services.AddSingleton<IDatabaseSettings>(sp => sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
+
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 

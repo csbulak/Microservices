@@ -16,7 +16,12 @@
     <Folder Include="Controllers\" />
     <Folder Include="Dtos\" />
     <Folder Include="Mapping\" />
+    <Folder Include="Services\" />
     <Folder Include="Settings\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Shared\Shared.csproj" />
   </ItemGroup>
 
 </Project>
