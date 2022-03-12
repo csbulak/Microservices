@@ -1,7 +1,5 @@
 ﻿using Catalog.API.Dtos;
-using Catalog.API.Models;
 using Catalog.API.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shared.ControllerBases;
 
