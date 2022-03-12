@@ -1,2 +1,5 @@
 Services
 	-Catalog.API => 5011
+
+IdentityServer
+	-IdentityServer => 5001
