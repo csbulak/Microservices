@@ -31,7 +31,7 @@ namespace Catalog.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CategoryDto category)
+        public async Task<IActionResult> Create(CategoryCreateDto category)
         {
             return CreateActionResultInstance(await _categoryService.CreateAsync(category));
         }

@@ -29,7 +29,7 @@ public class CategoryService : ICategoryService
         return Response<List<CategoryDto>>.Success(_mapper.Map<List<CategoryDto>>(categories), 200);
     }
 
-    public async Task<Response<CategoryDto>> CreateAsync(CategoryDto categoryDto)
+    public async Task<Response<CategoryDto>> CreateAsync(CategoryCreateDto categoryDto)
     {
         var createCategory = _mapper.Map<Category>(categoryDto);
 
@@ -40,13 +40,19 @@ public class CategoryService : ICategoryService
 
     public async Task<Response<CategoryDto>> GetByIdAsync(string id)
     {
-        var category = await _categoryCollection.Find<Category>(x => x.Id == id).FirstOrDefaultAsync();
+        try
+        {
+            var category = await _categoryCollection.Find<Category>(x => x.Id == id).FirstOrDefaultAsync();
+            if (category == null)
+            {
+                return Response<CategoryDto>.Fail("Category not found.", 404);
+            }
 
-        if (category == null)
+            return Response<CategoryDto>.Success(_mapper.Map<CategoryDto>(category), 200);
+        }
+        catch (Exception exception)
         {
             return Response<CategoryDto>.Fail("Category not found.", 404);
         }
-
-        return Response<CategoryDto>.Success(_mapper.Map<CategoryDto>(category), 200);
     }
 }
