@@ -29,11 +29,13 @@ public class CategoryService : ICategoryService
         return Response<List<CategoryDto>>.Success(_mapper.Map<List<CategoryDto>>(categories), 200);
     }
 
-    public async Task<Response<CategoryDto>> CreateAsync(Category category)
+    public async Task<Response<CategoryDto>> CreateAsync(CategoryDto categoryDto)
     {
-        await _categoryCollection.InsertOneAsync(category);
+        var createCategory = _mapper.Map<Category>(categoryDto);
 
-        return Response<CategoryDto>.Success(_mapper.Map<CategoryDto>(category), 200);
+        await _categoryCollection.InsertOneAsync(createCategory);
+
+        return Response<CategoryDto>.Success(_mapper.Map<CategoryDto>(createCategory), 200);
     }
 
     public async Task<Response<CategoryDto>> GetByIdAsync(string id)
