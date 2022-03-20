@@ -7,7 +7,6 @@ using Shared.Dtos;
 
 namespace PhotoStock.API.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PhotoController : CustomBaseController
