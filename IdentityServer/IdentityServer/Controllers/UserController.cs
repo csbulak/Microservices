@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using IdentityServer.Dtos;
 using IdentityServer.Models;
+using IdentityServer4;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +12,8 @@ using Shared.Dtos;
 
 namespace IdentityServer.Controllers
 {
-    [Route("api/[controller]")]
+    [Authorize(IdentityServerConstants.LocalApi.PolicyName)]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class UserController : CustomBaseController
     {
