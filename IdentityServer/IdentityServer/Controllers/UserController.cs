@@ -26,6 +26,7 @@ namespace IdentityServer.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> SignUp(SignUpDto signUpDto)
         {
             var result = await _userManager.CreateAsync(new ApplicationUser()
