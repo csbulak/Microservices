@@ -1,6 +1,7 @@
 using Basket.API.Services;
 using Basket.API.Settings;
 using Microsoft.Extensions.Options;
+using Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,10 @@ builder.Services.AddSingleton<RedisService>(sp =>
     redis.Connect();
     return redis;
 });
+
+builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
