@@ -18,6 +18,7 @@ builder.Services.AddSingleton<RedisService>(sp =>
 });
 
 builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+builder.Services.AddScoped<IBasketService, BasketService>();
 
 builder.Services.AddHttpContextAccessor();
 
