@@ -43,28 +43,28 @@ namespace IdentityServer
             {
                 var host = CreateHostBuilder(args).Build();
 
-                using (var scope = host.Services.CreateScope())
-                {
-                    var serviceProvider = scope.ServiceProvider;
+                //using (var scope = host.Services.CreateScope())
+                //{
+                //    var serviceProvider = scope.ServiceProvider;
 
-                    var applicationDbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+                //    var applicationDbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
 
-                    applicationDbContext.Database.Migrate();
+                //    applicationDbContext.Database.Migrate();
 
-                    var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                //    var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-                    if (!userManager.Users.Any())
-                    {
-                        userManager.CreateAsync(new ApplicationUser()
-                        {
-                            FirstName = "Cemal",
-                            LastName = "Bulak",
-                            UserName = "cemalbulak",
-                            Email = "cemalbulak41@gmail.com"
-                        }, "1453Cemalb..").Wait();
-                    }
+                //    if (!userManager.Users.Any())
+                //    {
+                //        userManager.CreateAsync(new ApplicationUser()
+                //        {
+                //            FirstName = "Cemal",
+                //            LastName = "Bulak",
+                //            UserName = "cemalbulak",
+                //            Email = "cemalbulak41@gmail.com"
+                //        }, "1453Cemalb..").Wait();
+                //    }
 
-                }
+                //}
 
                 Log.Information("Starting host...");
                 host.Run();
