@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Order.Domain.Core\Order.Domain.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="OrderAggregate\" />
+  </ItemGroup>
+
 </Project>
