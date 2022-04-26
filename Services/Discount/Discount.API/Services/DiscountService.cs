@@ -10,12 +10,11 @@ public class DiscountService : IDiscountService
     private readonly IConfiguration _configuration;
     private readonly IDbConnection _connection;
 
-    public DiscountService(IConfiguration configuration, IDbConnection connection)
+    public DiscountService(IConfiguration configuration)
     {
         _configuration = configuration;
         _connection = new NpgsqlConnection(_configuration.GetConnectionString("PostgreSql"));
     }
-
     public async Task<Response<List<Models.Discount>>> GetAll()
     {
         var discount = await _connection.QueryAsync<Models.Discount>("select * from discount");
@@ -68,18 +67,15 @@ public class DiscountService : IDiscountService
 
     public async Task<Response<Models.Discount>> GetByCodeAndUserId(string code, string userId)
     {
-        var discounts = await _connection.QueryAsync("select * from discount where code = @Code and userid=@UserId", new
-        {
-            Code = code,
-            UserId = userId
-        });
+        var discounts = await _connection.QueryAsync<Models.Discount>("select * from discount where userid=@UserId and code=@Code", new { UserId = userId, Code = code });
 
         var hasDiscount = discounts.FirstOrDefault();
 
-        return hasDiscount == null
-            ? Response<Models.Discount>.Fail("not found",
-                404)
-            : (Response<Models.Discount>)Response<Models.Discount>.Success(hasDiscount,
-                200);
+        if (hasDiscount == null)
+        {
+            return Response<Models.Discount>.Fail("Discount not found", 404);
+        }
+
+        return Response<Models.Discount>.Success(hasDiscount, 200);
     }
 }
