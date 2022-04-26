@@ -13,6 +13,11 @@
 
   <ItemGroup>
     <Folder Include="Dtos\" />
+    <Folder Include="Mapping\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
   </ItemGroup>
 
 </Project>
