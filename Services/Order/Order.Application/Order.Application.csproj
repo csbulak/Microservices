@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Shared\Shared.csproj" />
     <ProjectReference Include="..\Order.Domain\Order.Domain.csproj" />
     <ProjectReference Include="..\Order.Infrastructure\Order.Infrastructure.csproj" />
   </ItemGroup>
@@ -14,10 +15,13 @@
   <ItemGroup>
     <Folder Include="Dtos\" />
     <Folder Include="Mapping\" />
+    <Folder Include="Handlers\" />
+    <Folder Include="Queries\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="MediatR.Contracts" Version="1.0.1" />
   </ItemGroup>
 
 </Project>
