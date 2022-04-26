@@ -1,7 +1,14 @@
-﻿namespace Order.Domain.OrderAggregate;
+﻿using Order.Domain.Core;
 
-public class OrderItem
+namespace Order.Domain.OrderAggregate;
+
+public class OrderItem:Entity
 {
+    public OrderItem()
+    {
+        
+    }
+
     public OrderItem(string productId, string productName, string pictureUrl, decimal price)
     {
         ProductId = productId;

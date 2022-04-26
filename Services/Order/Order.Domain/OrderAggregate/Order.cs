@@ -4,6 +4,11 @@ namespace Order.Domain.OrderAggregate;
 
 public class Order : Entity, IAggregateRoot
 {
+    public Order()
+    {
+        
+    }
+
     public Order(Address address, string buyerId)
     {
         _orderItems = new List<OrderItem>();
