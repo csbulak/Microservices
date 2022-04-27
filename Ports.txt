@@ -9,3 +9,5 @@ IdentityServer
 	-IdentityServer => 5001
 Gateways
 	-Gateway.API => 5000
+WEB.UI
+	-WebUI => 5010
