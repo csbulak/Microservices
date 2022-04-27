@@ -41,6 +41,10 @@ namespace IdentityServer
             {
                 Scopes = { "fake_payment_fullpermission" }
             },
+            new ApiResource("resource_gateway")
+            {
+                Scopes = { "gateway_fullpermission" }
+            },
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -68,6 +72,7 @@ namespace IdentityServer
                 new ApiScope("discount_fullpermission", "Full Permission for Discount API"),
                 new ApiScope("order_fullpermission", "Full Permission for Order API"),
                 new ApiScope("fake_payment_fullpermission", "Full Permission for Fake Payment API"),
+                new ApiScope("gateway_fullpermission", "Full Permission for Gateway API"),
                 //new ApiScope("discount_read", "Read Permission for Discount API"),
                 //new ApiScope("discount_write", "Write Permission for Discount API"),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
@@ -86,6 +91,7 @@ namespace IdentityServer
                     {
                         "catalog_fullpermission",
                         "photostock_fullpermission",
+                        "gateway_fullpermission",
                         IdentityServerConstants.LocalApi.ScopeName
                     }
                 },
@@ -109,7 +115,8 @@ namespace IdentityServer
                         "basket_fullpermission",
                         "discount_fullpermission",
                         "order_fullpermission",
-                        "fake_payment_fullpermission"
+                        "fake_payment_fullpermission",
+                        "gateway_fullpermission"
                     },
                     AccessTokenLifetime = 1 * 60 * 60,
                     RefreshTokenExpiration = TokenExpiration.Absolute,
