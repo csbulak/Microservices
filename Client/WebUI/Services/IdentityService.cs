@@ -111,9 +111,70 @@ public class IdentityService : IIdentityService
 
     }
 
-    public Task<TokenResponse> GetAccessTokenByRefreshToken()
+    public async Task<TokenResponse> GetAccessTokenByRefreshToken()
     {
-        throw new NotImplementedException();
+        var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest()
+        {
+            Address = _serviceApiSettings.BaseUrl,
+            Policy = new DiscoveryPolicy()
+            {
+                RequireHttps = false
+            }
+        });
+
+        if (disco.IsError)
+        {
+            throw disco.Exception;
+        }
+
+        var refreshToken =
+            await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken);
+
+        RefreshTokenRequest refreshTokenRequest = new()
+        {
+            ClientId = _clientSettings.WebClientForUser.ClientId,
+            ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
+            RefreshToken = refreshToken,
+            Address = disco.TokenEndpoint
+        };
+
+        var token = await _httpClient.RequestRefreshTokenAsync(refreshTokenRequest);
+
+        if (token.IsError)
+        {
+            throw token.Exception;
+        }
+
+
+        var authenticationToken = new List<AuthenticationToken>()
+        {
+            new()
+            {
+                Name = OpenIdConnectParameterNames.AccessToken,
+                Value = token.AccessToken
+            },
+            new()
+            {
+                Name = OpenIdConnectParameterNames.RefreshToken,
+                Value = token.RefreshToken
+            },
+            new()
+            {
+                Name = OpenIdConnectParameterNames.ExpiresIn,
+                Value = DateTime.Now.AddSeconds(token.ExpiresIn).ToString("o",CultureInfo.InvariantCulture)
+            }
+        };
+
+        var authenticationResult = await _httpContextAccessor.HttpContext.AuthenticateAsync();
+
+        var properties = authenticationResult.Properties;
+
+        properties.StoreTokens(authenticationToken);
+
+        await _httpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+            authenticationResult.Principal, properties);
+
+        return token;
     }
 
     public Task RemoveRefreshToken()
