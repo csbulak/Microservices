@@ -31,7 +31,7 @@ public class IdentityService : IIdentityService
     {
         var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest()
         {
-            Address = _serviceApiSettings.BaseUrl,
+            Address = _serviceApiSettings.IdentityBaseUrl,
             Policy = new DiscoveryPolicy()
             {
                 RequireHttps = false
@@ -115,7 +115,7 @@ public class IdentityService : IIdentityService
     {
         var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest()
         {
-            Address = _serviceApiSettings.BaseUrl,
+            Address = _serviceApiSettings.IdentityBaseUrl,
             Policy = new DiscoveryPolicy()
             {
                 RequireHttps = false
@@ -181,7 +181,7 @@ public class IdentityService : IIdentityService
     {
         var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest()
         {
-            Address = _serviceApiSettings.BaseUrl,
+            Address = _serviceApiSettings.IdentityBaseUrl,
             Policy = new DiscoveryPolicy()
             {
                 RequireHttps = false
