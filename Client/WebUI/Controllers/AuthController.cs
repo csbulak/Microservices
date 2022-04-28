@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using WebUI.Models;
 using WebUI.Services.Interfaces;
 
@@ -39,5 +41,14 @@ public class AuthController : Controller
 
         return View();
 
+    }
+
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+        await _identityService.RemoveRefreshToken();
+
+        return RedirectToAction("Index", "Home");
     }
 }
