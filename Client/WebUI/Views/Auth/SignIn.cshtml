@@ -1,0 +1,38 @@
+﻿@model SignInInput
+
+@{
+    ViewBag.Title = "Giriş Yap";
+    Layout = "_Layout";
+}
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card">
+            <div class="card-body">
+                <form asp-action="SignIn" asp-controller="Auth" method="post">
+                    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="Email" asp-for="Email" placeholder="name@example.com">
+                        <label for="Email">Email address</label>
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="Password" asp-for="Password" placeholder="Password">
+                        <label for="Password">Password</label>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" asp-for="IsRemember"> Beni Hatırla
+                        </label>
+                    </div>
+                    <span asp-validation-for="IsRemember" class="text-danger"></span>
+                    <button class="w-100 btn btn-lg btn-primary" type="submit">Giriş Yap</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
