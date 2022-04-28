@@ -177,8 +177,35 @@ public class IdentityService : IIdentityService
         return token;
     }
 
-    public Task RemoveRefreshToken()
+    public async Task RemoveRefreshToken()
     {
-        throw new NotImplementedException();
+        var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest()
+        {
+            Address = _serviceApiSettings.BaseUrl,
+            Policy = new DiscoveryPolicy()
+            {
+                RequireHttps = false
+            }
+        });
+
+        if (disco.IsError)
+        {
+            throw disco.Exception;
+        }
+
+        var refreshToken =
+            await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken);
+
+        TokenRevocationRequest tokenRevocationRequest = new TokenRevocationRequest
+        {
+            ClientId = _clientSettings.WebClientForUser.ClientId,
+            ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
+            Address = disco.RevocationEndpoint,
+            Token = refreshToken,
+            TokenTypeHint = OpenIdConnectParameterNames.RefreshToken
+        };
+
+        await _httpClient.RevokeTokenAsync(tokenRevocationRequest);
+
     }
 }
