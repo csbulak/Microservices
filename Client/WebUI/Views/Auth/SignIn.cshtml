@@ -9,6 +9,7 @@
     <div class="col-md-4 offset-md-4">
         <div class="card">
             <div class="card-body">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <form asp-action="SignIn" asp-controller="Auth" method="post">
                     <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
                     <div class="form-floating">
