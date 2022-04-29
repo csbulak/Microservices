@@ -9,7 +9,6 @@ public interface ICatalogService
     Task<CourseViewModel> GetCourseById(string courseId);
 
     Task<List<CategoryViewModel>> GetAllCategories();
-    Task<List<CategoryViewModel>> GetCategoriesByUserId(string userId);
     Task<CategoryViewModel> GetCategoryById(string categoryId);
 
     Task<bool> CreateCourseAsync(CourseCreateInput input);

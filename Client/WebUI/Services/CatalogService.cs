@@ -6,53 +6,95 @@ namespace WebUI.Services;
 
 public class CatalogService : ICatalogService
 {
-    public Task<List<CourseViewModel>> GetAllCourse()
+    private readonly HttpClient _httpClient;
+
+    public CatalogService(HttpClient httpClient)
     {
-        throw new NotImplementedException();
+        _httpClient = httpClient;
     }
 
-    public Task<List<CourseViewModel>> GetAllCourseByUserId(string userId)
+    public async Task<List<CourseViewModel>> GetAllCourse()
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync("Courses");
+        if (!response.IsSuccessStatusCode)
+        {
+            return new List<CourseViewModel>();
+        }
+
+        var data = await response.Content.ReadFromJsonAsync<List<CourseViewModel>>();
+        return data ?? new List<CourseViewModel>();
     }
 
-    public Task<CourseViewModel> GetCourseById(string courseId)
+    public async Task<List<CourseViewModel>> GetAllCourseByUserId(string userId)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync($"Courses/GetAllByUserId/{userId}");
+        if (!response.IsSuccessStatusCode)
+        {
+            return new List<CourseViewModel>();
+        }
+
+        var data = await response.Content.ReadFromJsonAsync<List<CourseViewModel>>();
+        return data ?? new List<CourseViewModel>();
     }
 
-    public Task<List<CategoryViewModel>> GetAllCategories()
+    public async Task<CourseViewModel> GetCourseById(string courseId)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync($"Courses/{courseId}");
+        if (!response.IsSuccessStatusCode)
+        {
+            return new CourseViewModel();
+        }
+
+        var data = await response.Content.ReadFromJsonAsync<CourseViewModel>();
+        return data ?? new CourseViewModel();
     }
 
-    public Task<List<CategoryViewModel>> GetCategoriesByUserId(string userId)
+    public async Task<List<CategoryViewModel>> GetAllCategories()
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync("Categories");
+        if (!response.IsSuccessStatusCode)
+        {
+            return new List<CategoryViewModel>();
+        }
+
+        var data = await response.Content.ReadFromJsonAsync<List<CategoryViewModel>>();
+        return data ?? new List<CategoryViewModel>();
     }
 
-    public Task<CategoryViewModel> GetCategoryById(string categoryId)
+
+    public async Task<CategoryViewModel> GetCategoryById(string categoryId)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.GetAsync($"Categories/{categoryId}");
+        if (!response.IsSuccessStatusCode)
+        {
+            return new CategoryViewModel();
+        }
+
+        var data = await response.Content.ReadFromJsonAsync<CategoryViewModel>();
+        return data ?? new CategoryViewModel();
     }
 
-    public Task<bool> CreateCourseAsync(CourseCreateInput input)
+    public async Task<bool> CreateCourseAsync(CourseCreateInput input)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.PostAsJsonAsync<CourseCreateInput>("Courses", input);
+        return response.IsSuccessStatusCode;
     }
 
-    public Task<bool> UpdateCourseAsync(CourseUpdateInput input)
+    public async Task<bool> UpdateCourseAsync(CourseUpdateInput input)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.PutAsJsonAsync<CourseUpdateInput>("Courses", input);
+        return response.IsSuccessStatusCode;
     }
 
-    public Task<bool> DeleteCourseAsync(string courseId)
+    public async Task<bool> DeleteCourseAsync(string courseId)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.DeleteAsync($"Courses/{courseId}");
+        return response.IsSuccessStatusCode;
     }
 
-    public Task<bool> CreateCategoryAsync(CategoryCreateInput input)
+    public async Task<bool> CreateCategoryAsync(CategoryCreateInput input)
     {
-        throw new NotImplementedException();
+        var response = await _httpClient.PostAsJsonAsync<CategoryCreateInput>("Categories", input);
+        return response.IsSuccessStatusCode;
     }
 }
