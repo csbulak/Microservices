@@ -1,0 +1,26 @@
+﻿@model List<WebUI.Models.Catalog.CourseViewModel>
+
+
+
+
+<div class="card">
+    <div class="card-body">
+        @if (Model.Count < 0)
+        {
+            <span>Hiç bir kurs bulunamadı.</span>
+        }
+        @foreach (var course in Model)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <span>@course.Name</span>
+                </div>
+                <div class="card-body">
+                    <span>@course.Description</span>
+                    <span>@course.Price</span>
+                    <span>@course.Feature.Duration</span>
+                </div>
+            </div>
+        }
+    </div>
+</div>
