@@ -23,6 +23,8 @@ builder.Services.AddHttpClient<ICatalogService, CatalogService>(opt =>
     opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUrl}/{serviceApiSettings.Catalog.Path}");
 });
 
+builder.Services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
+
 
 builder.Services.AddScoped<ResourceOwnerPasswordTokenHandler>();
 builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
