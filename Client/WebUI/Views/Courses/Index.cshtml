@@ -25,6 +25,7 @@
                         <th>Fiyat</th>
                         <th>Süre (dk)</th>
                         <th>Kategori</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +38,9 @@
                             <td>@course.Price</td>
                             <td>@course.Feature.Duration</td>
                             <td>@course.Category.Name</td>
+                            <td>
+                                <a class="btn btn-primary" asp-controller="Courses" asp-action="Update" asp-route-id="@course.Id">Düzenle</a>
+                            </td>
                         </tr>
                     }
                 </tbody>

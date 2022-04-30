@@ -43,11 +43,11 @@ public class CatalogService : ICatalogService
         var response = await _httpClient.GetAsync($"Courses/{courseId}");
         if (!response.IsSuccessStatusCode)
         {
-            return new CourseViewModel();
+            return null;
         }
 
         var data = await response.Content.ReadFromJsonAsync<Response<CourseViewModel>>();
-        return data?.Data ?? new CourseViewModel();
+        return data?.Data;
     }
 
     public async Task<List<CategoryViewModel>> GetAllCategories()
