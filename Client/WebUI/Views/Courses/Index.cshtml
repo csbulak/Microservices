@@ -1,11 +1,16 @@
-﻿@model Shared.Dtos.Response<List<WebUI.Models.Catalog.CourseViewModel>>
+﻿@model List<WebUI.Models.Catalog.CourseViewModel>
 
 
 
 
 <div class="card">
+    <div class="card-header">
+        <div class="card-toolbar">
+            <a class="btn btn-success" asp-controller="Courses" asp-action="Create">Kurs Ekle</a>
+        </div>
+    </div>
     <div class="card-body">
-        @if (Model.Data.Count < 0)
+        @if (!Model.Any())
         {
             <span>Hiç bir kurs bulunamadı.</span>
         }
@@ -14,6 +19,7 @@
             <table class="table table-bordered table-striped table-hover">
                 <thead>
                     <tr>
+                        <th>Resim</th>
                         <th>Kurs Adı</th>
                         <th>Açıklama</th>
                         <th>Fiyat</th>
@@ -22,9 +28,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var course in Model.Data)
+                    @foreach (var course in Model)
                     {
                         <tr>
+                            <td>@course.Picture</td>
                             <td>@course.Name</td>
                             <td>@course.Description</td>
                             <td>@course.Price</td>
