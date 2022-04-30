@@ -1,15 +1,16 @@
-﻿using WebUI.Models.Catalog;
+﻿using Shared.Dtos;
+using WebUI.Models.Catalog;
 
 namespace WebUI.Services.Interfaces;
 
 public interface ICatalogService
 {
-    Task<List<CourseViewModel>> GetAllCourse();
-    Task<List<CourseViewModel>> GetAllCourseByUserId(string userId);
-    Task<CourseViewModel> GetCourseById(string courseId);
+    Task<Response<List<CourseViewModel>>> GetAllCourse();
+    Task<Response<List<CourseViewModel>>> GetAllCourseByUserId(string userId);
+    Task<Response<CourseViewModel>> GetCourseById(string courseId);
 
-    Task<List<CategoryViewModel>> GetAllCategories();
-    Task<CategoryViewModel> GetCategoryById(string categoryId);
+    Task<Response<List<CategoryViewModel>>> GetAllCategories();
+    Task<Response<CategoryViewModel>> GetCategoryById(string categoryId);
 
     Task<bool> CreateCourseAsync(CourseCreateInput input);
     Task<bool> UpdateCourseAsync(CourseUpdateInput input);
