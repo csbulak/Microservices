@@ -94,4 +94,10 @@ public class CoursesController : Controller
         ViewBag.Categories = new SelectList(categories, "Id", "Name");
         return View(input);
     }
+
+    public async Task<IActionResult> Delete(string id)
+    {
+        var response = await _catalogService.DeleteCourseAsync(id);
+        return RedirectToAction("Index", "Courses");
+    }
 }
