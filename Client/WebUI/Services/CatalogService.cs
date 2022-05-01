@@ -8,10 +8,13 @@ namespace WebUI.Services;
 public class CatalogService : ICatalogService
 {
     private readonly HttpClient _httpClient;
+    private readonly IPhotoStockService _photoStockService;
 
-    public CatalogService(HttpClient httpClient)
+
+    public CatalogService(HttpClient httpClient, IPhotoStockService photoStockService)
     {
         _httpClient = httpClient;
+        _photoStockService = photoStockService;
     }
 
     public async Task<List<CourseViewModel>> GetAllCourse()
@@ -77,6 +80,12 @@ public class CatalogService : ICatalogService
 
     public async Task<bool> CreateCourseAsync(CourseCreateInput input)
     {
+        var resultPhotoService = await _photoStockService.UploadPhoto(input.PhotoFormFile);
+
+        if (resultPhotoService != null)
+        {
+            input.Picture = resultPhotoService.Url;
+        }
         var response = await _httpClient.PostAsJsonAsync<CourseCreateInput>($"Courses", input);
         return response.IsSuccessStatusCode;
     }

@@ -13,36 +13,38 @@ public class PhotoStockService : IPhotoStockService
         _httpClient = httpClient;
     }
 
-    public async Task<PhotoViewModel> UploadPhoto(IFormFile? file)
+    public async Task<PhotoViewModel> UploadPhoto(IFormFile photo)
     {
-        if (file == null || file.Length <= 0)
+        if (photo == null || photo.Length <= 0)
         {
             return null;
         }
-
-        var randomFileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+        // örnek dosya ismi= 203802340234.jpg
+        var randonFilename = $"{Guid.NewGuid().ToString()}{Path.GetExtension(photo.FileName)}";
 
         using var ms = new MemoryStream();
-        await file.CopyToAsync(ms);
+
+        await photo.CopyToAsync(ms);
 
         var multipartContent = new MultipartFormDataContent();
-        multipartContent.Add(new ByteArrayContent(ms.ToArray()), "photo", randomFileName);
 
-        var response = await _httpClient.PostAsync($"Photo", multipartContent);
+        multipartContent.Add(new ByteArrayContent(ms.ToArray()), "photo", randonFilename);
+
+        var response = await _httpClient.PostAsync("photo", multipartContent);
 
         if (!response.IsSuccessStatusCode)
         {
             return null;
         }
 
-        return await response.Content.ReadFromJsonAsync<PhotoViewModel>() ?? null;
+        var responseSuccess = await response.Content.ReadFromJsonAsync<Response<PhotoViewModel>>();
+
+        return responseSuccess.Data;
     }
 
     public async Task<bool> DeletePhoto(string photoUrl)
     {
-        var response = await _httpClient.DeleteAsync($"photo?photoUrl={photoUrl}");
-
+        var response = await _httpClient.DeleteAsync($"photos?photoUrl={photoUrl}");
         return response.IsSuccessStatusCode;
-
     }
 }

@@ -15,4 +15,6 @@ public class CourseCreateInput
     public string CategoryId { get; set; }
 
     public FeatureViewModel Feature { get; set; }
+
+    public IFormFile PhotoFormFile { get; set; }
 }
