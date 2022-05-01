@@ -15,7 +15,7 @@ namespace PhotoStock.API.Controllers
         public async Task<IActionResult> PhotoSave(List<IFormFile> photo, CancellationToken cancellationToken)
         {
             if (photo.Count <= 0) return CreateActionResultInstance(Response<PhotoDto>.Fail("Photo is empty", 400));
-            
+
             var photoDto = new List<PhotoDto>();
 
             foreach (var formFile in photo)
@@ -29,7 +29,7 @@ namespace PhotoStock.API.Controllers
                 await formFile.CopyToAsync(stream, cancellationToken);
 
                 //http://www.photostock.api.com/photos/aasdasd.jpg
-                var returnPath = "photos/" + formFile.FileName;
+                var returnPath = formFile.FileName;
 
                 photoDto.Add(new PhotoDto()
                 {
