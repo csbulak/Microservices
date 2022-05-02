@@ -1,4 +1,5 @@
 ﻿using Shared.Dtos;
+using WebUI.Helpers;
 using WebUI.Models;
 using WebUI.Models.Catalog;
 using WebUI.Services.Interfaces;
@@ -9,12 +10,14 @@ public class CatalogService : ICatalogService
 {
     private readonly HttpClient _httpClient;
     private readonly IPhotoStockService _photoStockService;
+    private readonly PhotoHelper _photoHelper;
 
 
-    public CatalogService(HttpClient httpClient, IPhotoStockService photoStockService)
+    public CatalogService(HttpClient httpClient, IPhotoStockService photoStockService, PhotoHelper photoHelper)
     {
         _httpClient = httpClient;
         _photoStockService = photoStockService;
+        _photoHelper = photoHelper;
     }
 
     public async Task<List<CourseViewModel>> GetAllCourse()
@@ -26,7 +29,11 @@ public class CatalogService : ICatalogService
         }
 
         var data = await response.Content.ReadFromJsonAsync<Response<List<CourseViewModel>>>();
-        return data.Data ?? new List<CourseViewModel>();
+        data?.Data.ForEach(x =>
+        {
+            x.Picture = _photoHelper.GetPhotoStockUrl(x.Picture);
+        });
+        return data?.Data ?? new List<CourseViewModel>();
     }
 
     public async Task<List<CourseViewModel>> GetAllCourseByUserId(string userId)
@@ -38,6 +45,10 @@ public class CatalogService : ICatalogService
         }
 
         var data = await response.Content.ReadFromJsonAsync<Response<List<CourseViewModel>>>();
+        data?.Data.ForEach(x =>
+        {
+            x.Picture = _photoHelper.GetPhotoStockUrl(x.Picture);
+        });
         return data?.Data ?? new List<CourseViewModel>();
     }
 

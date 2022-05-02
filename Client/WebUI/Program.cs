@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Shared.Services;
 using WebUI.Handlers;
+using WebUI.Helpers;
 using WebUI.Models;
 using WebUI.Services;
 using WebUI.Services.Interfaces;
@@ -16,6 +17,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ResourceOwnerPasswordTokenHandler>();
 builder.Services.AddScoped<ClientCredentialTokenHandler>();
 builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+builder.Services.AddSingleton<PhotoHelper>();
 builder.Services.AddAccessTokenManagement();
 
 
