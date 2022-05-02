@@ -42,12 +42,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
-else
-{
-    app.UseExceptionHandler("/Home/Error");
-}
+//else
+//{
+//    app.UseExceptionHandler("/Home/Error");
+//}
 
-//app.UseExceptionHandler("/Home/Error"); Canlıya aldığında bunu aç.
+app.UseExceptionHandler("/Home/Error"); /*Canlıya aldığında bunu aç.*/
 
 app.UseStaticFiles();
 

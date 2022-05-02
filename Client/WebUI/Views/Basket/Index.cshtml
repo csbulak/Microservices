@@ -1,1 +1,48 @@
 ﻿@model WebUI.Models.Basket.BasketViewModel
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Sepet</h5>
+
+                @if (Model != null && Model._basketItems.Any())
+                {
+                    <table class="table table-striped table-hover table-bordered">
+                        <tr>
+                            <th>Kurs Adı</th>
+                            <th>Fiyat</th>
+                            <th>İşlemler</th>
+                        </tr>
+                        @foreach (var item in Model._basketItems)
+                        {
+                            <tr>
+                                <td>@item.CourseName</td>
+                                <td>@item.GetCurrentPrice.ToString("C")</td>
+                                <td>
+                                    <a asp-controller="Basket" asp-action="RemoveBasketItem" asp-route-courseId="@item.CourseId" class="btn btn-danger btn-sm">Sil</a>
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.HasDiscount)
+                        {
+                            <tr>
+                                <th>İndirim Oranı</th>
+                                <td colspan="2">% @Model.DiscountRate.Value</td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td>@(Model.HasDiscount ? "İndirimli Fiyat":"Toplam Fiyat")</td>
+                            <th colspan="2" class="fw-bold">@Model.TotalPrice.ToString("C")</th>
+                        </tr>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-info">Sepet Boş</div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
