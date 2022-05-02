@@ -92,6 +92,13 @@ public class CatalogService : ICatalogService
 
     public async Task<bool> UpdateCourseAsync(CourseUpdateInput input)
     {
+        var resultPhotoService = await _photoStockService.UploadPhoto(input.PhotoFormFile);
+
+        if (resultPhotoService != null)
+        {
+            await _photoStockService.DeletePhoto(input.Picture);
+            input.Picture = resultPhotoService.Url;
+        }
         var response = await _httpClient.PutAsJsonAsync<CourseUpdateInput>("Courses", input);
         return response.IsSuccessStatusCode;
     }

@@ -44,7 +44,7 @@ public class PhotoStockService : IPhotoStockService
 
     public async Task<bool> DeletePhoto(string photoUrl)
     {
-        var response = await _httpClient.DeleteAsync($"photos?photoUrl={photoUrl}");
+        var response = await _httpClient.DeleteAsync($"photo?photoUrl={photoUrl}");
         return response.IsSuccessStatusCode;
     }
 }

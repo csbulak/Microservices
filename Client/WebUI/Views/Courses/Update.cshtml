@@ -9,6 +9,9 @@
                 <hr />
                 <form asp-controller="Courses" asp-action="Update" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="UserId" />
+                    <input type="hidden" asp-for="Picture" />
                     <div class="mb-3">
                         <label for="" class="form-label" asp-for="CategoryId">Kategori</label>
                         <select class="form-control" asp-items="@ViewBag.Categories" asp-for="CategoryId">
@@ -35,6 +38,11 @@
                         <label class="form-label" asp-for="Feature.Duration">Süre</label>
                         <input class="form-control" asp-for="Feature.Duration" value="@Model.Feature.Duration" />
                         <span class="text-danger" asp-validation-for="Feature.Duration"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" asp-for="PhotoFormFile">Resim</label>
+                        <input type="file" class="form-control" asp-for="PhotoFormFile" />
+                        <span class="text-danger" asp-validation-for="PhotoFormFile"></span>
                     </div>
                     <button type="submit" class="btn btn-primary">Kaydet</button>
                 </form>
