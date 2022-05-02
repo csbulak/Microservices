@@ -31,7 +31,7 @@ public class CatalogService : ICatalogService
         var data = await response.Content.ReadFromJsonAsync<Response<List<CourseViewModel>>>();
         data?.Data.ForEach(x =>
         {
-            x.Picture = _photoHelper.GetPhotoStockUrl(x.Picture);
+            x.StockPictureUrl = _photoHelper.GetPhotoStockUrl(x.Picture);
         });
         return data?.Data ?? new List<CourseViewModel>();
     }
@@ -47,7 +47,7 @@ public class CatalogService : ICatalogService
         var data = await response.Content.ReadFromJsonAsync<Response<List<CourseViewModel>>>();
         data?.Data.ForEach(x =>
         {
-            x.Picture = _photoHelper.GetPhotoStockUrl(x.Picture);
+            x.StockPictureUrl = _photoHelper.GetPhotoStockUrl(x.Picture);
         });
         return data?.Data ?? new List<CourseViewModel>();
     }
@@ -61,6 +61,7 @@ public class CatalogService : ICatalogService
         }
 
         var data = await response.Content.ReadFromJsonAsync<Response<CourseViewModel>>();
+        data.Data.StockPictureUrl = _photoHelper.GetPhotoStockUrl(data.Data.Picture);
         return data?.Data;
     }
 

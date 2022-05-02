@@ -18,6 +18,7 @@ public class CourseViewModel
     public string ShortDescription => Description.Length > 70 ? Description.Substring(0, 100) + "..." : Description;
 
     public string Picture { get; set; }
+    public string StockPictureUrl { get; set; }
 
     public DateTime CreatedTime { get; set; }
 

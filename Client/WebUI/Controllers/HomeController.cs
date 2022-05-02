@@ -23,6 +23,11 @@ namespace WebUI.Controllers
             return View(courses);
         }
 
+        public async Task<IActionResult> Detail(string id)
+        {
+            return View(await _catalogService.GetCourseById(id));
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
