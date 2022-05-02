@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Helpers\" />
     <Folder Include="Models\Basket\" />
+    <Folder Include="Extensions\" />
     <Folder Include="Services\Interfaces\" />
   </ItemGroup>
 
