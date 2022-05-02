@@ -15,6 +15,7 @@ public class CourseViewModel
     public decimal Price { get; set; }
 
     public string Description { get; set; }
+    public string ShortDescription => Description.Length > 70 ? Description.Substring(0, 100) + "..." : Description;
 
     public string Picture { get; set; }
 

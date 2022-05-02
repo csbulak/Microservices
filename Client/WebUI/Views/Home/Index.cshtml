@@ -4,12 +4,36 @@
     ViewData["Title"] = "Home Page";
 }
 
-
-
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="">
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">
+            <h4 class="card-text">Kurslar</h4>
         </div>
-    }
+    </div>
+    <div class="card-body">
+        <div class="row">
+            @if (Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <div class="col-md-3 mt-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <img src="@item.Picture" class="card-img-top" alt="...">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Name</h5>
+                                <p class="card-text">@item.ShortDescription</p>
+                                <h5 class="text-primary">@item.Price.ToString("C")</h5>
+                            </div>
+                            <div class="card-footer">
+                                <a class="btn btn-dark" href="#">Detay</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 </div>
+
