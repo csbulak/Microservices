@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Shared.Services;
 using WebUI.Handlers;
 using WebUI.Helpers;
@@ -59,10 +59,17 @@ builder.Services.AddControllersWithViews();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
+//app.UseExceptionHandler("/Home/Error"); Canlıya aldığında bunu aç.
+
 app.UseStaticFiles();
 
 app.UseRouting();
